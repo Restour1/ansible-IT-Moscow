@@ -1,10 +1,30 @@
 ---
 - name: install server
   hosts: demo
+
+  vars:
+    hostname: Example
+    server_name: MyServer
+
   tasks:
     # - name "anywhere"
       # dnf:
       #   name: "name"
 
-    - name: "write name"
-      shell: echo "host name $0"
+    # - name: "write name"
+    #   shell: echo "host name $0"
+
+      - name: Apache installer
+        dnf:
+          name: httpd
+          state: present
+
+      - name: Starter Apache
+        service:
+          name: httpd
+          state: started
+
+      - name: index.html from template
+        template:
+          src: index.html
+          dest: index.html # нужно будет выбрать путь

@@ -1,0 +1,6 @@
+demo:
+  hosts:
+    mos12_demo:
+      ansible_host: 172.16.5.18
+      ansible_user: student
+      ansible_become_password: 12345678

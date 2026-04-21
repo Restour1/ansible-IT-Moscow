@@ -1,0 +1,10 @@
+---
+- name: install server
+  hosts: demo
+  tasks:
+    # - name "anywhere"
+      # dnf:
+      #   name: "name"
+
+    - name: "write name"
+      shell: echo "host name $0"

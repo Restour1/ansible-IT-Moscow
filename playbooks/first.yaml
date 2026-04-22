@@ -1,7 +1,7 @@
 ---
 - name: install server
   hosts: demo
-
+  become: true
   vars:
     hostname: Example
     server_name: MyServer
@@ -18,13 +18,14 @@
         dnf:
           name: httpd
           state: present
+          use_backend: dnf4
+
+      - name: index.html from template
+        template:
+          src: index.html.j2
+          dest: /var/www/html/index.html
 
       - name: Starter Apache
         service:
           name: httpd
           state: started
-
-      - name: index.html from template
-        template:
-          src: index.html
-          dest: index.html # нужно будет выбрать путь

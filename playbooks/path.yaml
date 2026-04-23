@@ -5,7 +5,7 @@
 
   vars:
     user_name: student2
-    config_path: "/home/{{user_name}}/.config/plasma-org.kde.plasma.desktop-appletsrc"
+    config_path: "/home/{{user_name}}/.config/"
     wallpaper_name: itmoscow.png
     wallpaper_path: /usr/share/wallpapers/
 
@@ -20,15 +20,38 @@
     #     state: directory
     #     mode: '0755'
 
-    # - name: Set wallpaper
-    #   shell: plasma-apply-wallpaperimage {{wallpaper_path}}{{wallpaper_name}}
+    - name: Copy wallpaper image
+      copy:
+        src: "files/{{ wallpaper_name }}"
+        dest: "{{ wallpaper_path }}{{ wallpaper_name }}"
+        owner: root # можно указать, но по идее нет смысла т.к. папка уже запрещает взаимодействие без root
+        group: root
+        mode: '0644'
 
     - name: Set wallpaper
       community.general.kdeconfig:
-        path: "{{ config_path }}"
+        path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
         values:
           - groups: [Containments, 1, Wallpaper, org.kde.image, General]
             key: Image
             value: "{{ wallpaper_path }}{{ wallpaper_name }}"
         mode: '0644'
+      notify: "Перезапуск kde"
+
+    - name: Set panel to bottom
+      community.general.kdeconfig:
+        path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
+        values:
+          - groups: [Containments, 1]
+            key: location
+            value: 4 #3 - top, 5 - left, 6 - right
+      notify: "Перезапуск kde"
+    
+    - name: Set light color theme
+      community.general.kdeconfig:
+        path: "{{ config_path }}kdeglobals"
+        values:
+          - group: [General]
+            key: ColorScheme
+            value: BreezeLight
       notify: "Перезапуск kde"

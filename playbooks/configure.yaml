@@ -7,9 +7,15 @@
       - git
       - ansible
     playbook_name: playbooks/example.yaml
+    systemd_path: /etc/systemd/system/
     default_inventory_file: /etc/ansible/hosts
     git_url: https://github.com/Restour1/ansible-IT-Moscow.git
-    shell_command: "ansible-pull --accept-host-key -i 'localhost,' -U {{ git_url }} {{ playbook_name }}"
+    shell_command: ansible-pull --accept-host-key -i "localhost," -U "{{ git_url }}" "{{ playbook_name }}"
+
+  handlers:
+    - name: reload systemd
+      systemd_service:
+        daemon_reload: yes
 
   tasks:
     - name: "Download packages"
@@ -21,9 +27,20 @@
     - name: "Configure ansible"
       shell: "{{ shell_command }}"
 
-    - name: "Automatic execute"
-      cron:
-        name: "start ansible pull"
-        special_time: reboot
-        job: "{{shell_command}}"
-      
+    - name: "Added config service"
+      template:
+        src: templates/ansible-config.service.j2
+        dest: "{{ systemd_path }}ansible-config.service"
+      notify: reload systemd
+
+    - name: "Added config timer"
+      copy:
+        src: files/ansible-config.timer
+        dest: "{{ systemd_path }}ansible-config.timer"
+      notify: reload systemd
+
+    - name: "Systemd_service"
+      systemd_service:
+        name: ansible-config.timer
+        state: started
+        enabled: yes

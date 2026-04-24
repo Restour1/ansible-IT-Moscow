@@ -6,10 +6,10 @@
     packages: 
       - git
       - ansible
-    playbook_name: playbooks/path.yaml
+    playbook_name: playbooks/example.yaml
     default_inventory_file: /etc/ansible/hosts
     git_url: https://github.com/Restour1/ansible-IT-Moscow.git
-    shell_command: "ansible-pull --accept-host-key -U {{ git_url }} {{ playbook_name }}"
+    shell_command: "ansible-pull --accept-host-key -i 'localhost,' -U {{ git_url }} {{ playbook_name }}"
 
   tasks:
     - name: "Download packages"

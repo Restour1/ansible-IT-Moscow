@@ -1,0 +1,8 @@
+---
+- name: Make dirs
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: "Create file"
+      shell: "touch /tmp/hello"

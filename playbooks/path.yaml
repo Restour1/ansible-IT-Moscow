@@ -24,7 +24,7 @@
       copy:
         src: "files/{{ wallpaper_name }}"
         dest: "{{ wallpaper_path }}{{ wallpaper_name }}"
-        owner: root # можно указать, но по идее нет смысла т.к. папка уже запрещает взаимодействие без root
+        owner: root
         group: root
         mode: '0644'
 
@@ -38,20 +38,20 @@
         mode: '0644'
       notify: "Перезапуск kde"
 
-    - name: Set panel to bottom
-      community.general.kdeconfig:
-        path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
-        values:
-          - groups: [Containments, 1]
-            key: location
-            value: 4 #3 - top, 5 - left, 6 - right
-      notify: "Перезапуск kde"
+    # - name: Set panel to bottom
+    #   community.general.kdeconfig:
+    #     path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
+    #     values:
+    #       - groups: [Containments, 1]
+    #         key: location
+    #         value: 4 #3 - top, 5 - left, 6 - right
+    #   notify: "Перезапуск kde"
     
-    - name: Set light color theme
-      community.general.kdeconfig:
-        path: "{{ config_path }}kdeglobals"
-        values:
-          - group: [General]
-            key: ColorScheme
-            value: BreezeLight
-      notify: "Перезапуск kde"
+    # - name: Set light color theme
+    #   community.general.kdeconfig:
+    #     path: "{{ config_path }}kdeglobals"
+    #     values:
+    #       - group: [General]
+    #         key: ColorScheme
+    #         value: BreezeLight
+    #   notify: "Перезапуск kde"

@@ -1,6 +1,6 @@
 ---
 - name: Make dirs
-  hosts: demo
+  hosts: localhost
   become: true
 
   vars:

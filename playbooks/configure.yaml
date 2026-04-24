@@ -3,23 +3,25 @@
   hosts: demo
   become: true
   vars:
-    packages: ansible
+    packages: 
+      - git
+      - ansible
     playbook_name: playbooks/path.yaml
     default_inventory_file: /etc/ansible/hosts
     git_url: https://github.com/Restour1/ansible-IT-Moscow.git
-    shell_command: "ansible-pull -U {{ git_url }} {{ playbook_name }}"
+    shell_command: "ansible-pull --accept-host-key -U {{ git_url }} {{ playbook_name }}"
 
   tasks:
-    - name "Download ansible"
+    - name: "Download packages"
       dnf:
         name: "{{ packages }}"
         state: latest
         use_backend: dnf4
 
-    - name "Configure ansible"
+    - name: "Configure ansible"
       shell: "{{ shell_command }}"
 
-    - name "Automatic execute"
+    - name: "Automatic execute"
       cron:
         name: "start ansible pull"
         special_time: reboot

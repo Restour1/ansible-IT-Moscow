@@ -29,6 +29,6 @@
         values:
           - groups: [Containments, 1, Wallpaper, org.kde.image, General]
             key: Image
-            value: "{{ wallpaper_path }}{{ wallpaper_name }}"
+            value: "{{ wallpaper_local_path }}{{ used_wallpaper }}"
         mode: '0644'
       notify: "Перезапуск kde"

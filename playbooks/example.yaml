@@ -33,3 +33,6 @@
             value: "{{ wallpaper_local_path }}{{ used_wallpaper }}"
         mode: '0644'
       notify: "Перезапуск kde"
+
+  collections:
+    - name: community.general

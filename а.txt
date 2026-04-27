@@ -1,0 +1,1 @@
+ansible-pull --accept-host-key -i "localhost," -U https://github.com/Restour1/ansible-IT-Moscow.git playbooks/example.yaml

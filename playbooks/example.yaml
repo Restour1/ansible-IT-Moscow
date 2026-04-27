@@ -14,6 +14,9 @@
     - name: "Перезапуск kde"
       command: "systemctl --user --machine={{user_name}}@.host restart plasma-plasmashell.service"
 
+  collections:
+    - name: community.general
+
   tasks:
     - name: Create file for example
       shell: "touch /tmp/hello"
@@ -34,6 +37,3 @@
             value: "{{ wallpaper_local_path }}{{ used_wallpaper }}"
         mode: '0644'
       notify: "Перезапуск kde"
-
-  collections:
-    - name: community.general

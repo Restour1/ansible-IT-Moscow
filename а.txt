@@ -1,1 +1,32 @@
 ansible-pull --accept-host-key -i "localhost," -U https://github.com/Restour1/ansible-IT-Moscow.git playbooks/example.yaml
+
+
+fatal: [mos12-demo]: FAILED! => {"changed": true, "cmd": "ansible-pull --accept-host-key -i \"localhost,\" -U \"https://github.com/Restour1/ansible-IT-Moscow.git\" \"playbooks/example.yaml\"", "delta": "0:00:03.866212", "end": "2026-04-27 16:51:41.953086", "msg": "non-zero return code", "rc": 4, "start": "2026-04-27 16:51:38.086874", "stderr": "", "stderr_lines": [], "stdout": "Starting Ansible Pull at 2026-04-27 16:51:38
+/usr/bin/ansible-pull --accept-host-key -i localhost, -U https://github.com/Restour1/ansible-IT-Moscow.git playbooks/example.yaml
+[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo
+[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo.local
+[WARNING]: Platform linux on host localhost is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+localhost | CHANGED => {
+        \"after\": \"451fa02008f25159fbaf849b931faa98ca8d9be8\",
+    \"ansible_facts\": {
+            \"discovered_interpreter_python\": \"/usr/bin/python\"
+    },
+    \"before\": \"abf70f7e2fe272fc64845350b425dd86fdcaa55b\",
+    \"changed\": true,
+    \"remote_url_changed\": false
+}
+[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo
+[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo.local
+ERROR! couldn't resolve module/action 'community.general.kdeconfig'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in '/root/.ansible/pull/mos12-demo.local/playbooks/example.yaml': line 31, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Set wallpaper
+      ^ here", "stdout_lines": ["Starting Ansible Pull at 2026-04-27 16:51:38", "/usr/bin/ansible-pull --accept-host-key -i localhost, -U https://github.com/Restour1/ansible-IT-Moscow.git playbooks/example.yaml", "[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo", "[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo.local", "[WARNING]: Platform linux on host localhost is using the discovered Python", "interpreter at /usr/bin/python, but future installation of another Python", "interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen", "ce_appendices/interpreter_discovery.html for more information.", "localhost | CHANGED => {", "    \"after\": \"451fa02008f25159fbaf849b931faa98ca8d9be8\",", "    \"ansible_facts\": {", "        \"discovered_interpreter_python\": \"/usr/bin/python\"", "    },", "    \"before\": \"abf70f7e2fe272fc64845350b425dd86fdcaa55b\",", "    \"changed\": true,", "    \"remote_url_changed\": false", "}", "[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo", "[WARNING]: Could not match supplied host pattern, ignoring: mos12-demo.local", "ERROR! couldn't resolve module/action 'community.general.kdeconfig'. This often indicates a misspelling, missing collection, or incorrect module path.", "", "The error appears to be in '/root/.ansible/pull/mos12-demo.local/playbooks/example.yaml': line 31, column 7, but may", "be elsewhere in the file depending on the exact syntax problem.", "", "The offending line appears to be:", "", "", "    - name: Set wallpaper", "      ^ here"]}

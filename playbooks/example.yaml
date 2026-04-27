@@ -14,8 +14,8 @@
     - name: "Перезапуск kde"
       command: "systemctl --user --machine={{user_name}}@.host restart plasma-plasmashell.service"
 
-  collections:
-    - name: community.general
+  # collections:
+  #   - name: community.general
 
   tasks:
     - name: Create file for example

@@ -6,6 +6,7 @@
   vars:
     user_name: student2
     used_wallpaper: itmoscow.png
+    config_path: "/home/{{user_name}}/.config/"
     wallpaper_local_path: /usr/share/wallpapers/
     wallpaper_url: "https://raw.githubusercontent.com/Restour1/ansible-IT-Moscow/main/playbooks/files/{{used_wallpaper}}"
 

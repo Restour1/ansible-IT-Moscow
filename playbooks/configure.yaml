@@ -8,8 +8,11 @@
       - ansible
     playbook_name: playbooks/example.yaml
     systemd_path: /etc/systemd/system/
+    remote_path: /tmp/community-general-3.8.0.tar.gz
     default_inventory_file: /etc/ansible/hosts
     git_url: https://github.com/Restour1/ansible-IT-Moscow.git
+    ansible_module_path: /usr/share/ansible/plugins/modules
+    shell_ansible_installer: ansible-galaxy collection install community.general
     shell_command: ansible-pull --accept-host-key -i "localhost," -U "{{ git_url }}" "{{ playbook_name }}"
 
   handlers:
@@ -18,14 +21,36 @@
         daemon_reload: yes
 
   tasks:
-    - name: "Download packages"
-      dnf:
-        name: "{{ packages }}"
-        state: latest
-        use_backend: dnf4
+    # - name: "Create directory plugins" # ansible должен сам создавать, задача не обязательна
+    #   file:
+    #     path: "{{ ansible_module_path }}"
+    #     state: directory
+    #     mode: '0755'
 
-    - name: "Configure ansible"
-      shell: "{{ shell_command }}"
+    # - name: "Copy library archive"
+    #   copy:
+    #     src: files/community-general-3.8.0.tar.gz
+    #     dest: "{{ remote_path }}"
+
+    # - name: "Install library archive"
+    #   command: ansible-galaxy collection install "{{ remote_path }}" # -p "{{ ansible_module_path }}" лишняя часть
+      # environment:
+      #   ANSIBLE_LIBRARY: "{{ ansible_module_path }}"
+      # when: not collection_dir.stat.exists
+
+    # - name: "Delete library archive"
+    #   file:
+    #     path: "{{ remote_path }}"
+    #     state: absent
+
+    # - name: "Download packages"
+    #   dnf:
+    #     name: "{{ packages }}"
+    #     state: latest
+    #     use_backend: dnf4
+
+    # - name: "Configure ansible"
+    #   shell: "{{ shell_command }}"
 
     - name: "Added config service"
       template:

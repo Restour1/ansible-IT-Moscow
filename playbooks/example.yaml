@@ -9,13 +9,14 @@
     config_path: "/home/{{user_name}}/.config/"
     wallpaper_local_path: /usr/share/wallpapers/
     wallpaper_url: "https://raw.githubusercontent.com/Restour1/ansible-IT-Moscow/main/playbooks/files/{{used_wallpaper}}"
+    set_wallpaper_command: "kwriteconfig5 --file /home/{{ user_name }}/.config/plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image {{ wallpaper_local_path }}{{ used_wallpaper }}"
 
   handlers:
     - name: "Перезапуск kde"
       command: "systemctl --user --machine={{user_name}}@.host restart plasma-plasmashell.service"
 
-  # collections:
-  #   - name: community.general
+  collections:
+    - name: community.general
 
   tasks:
     - name: Create file for example
@@ -28,12 +29,13 @@
         mode: '0644'
         force: false
 
-    - name: Set wallpaper
-      community.general.kdeconfig:
-        path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
-        values:
-          - groups: [Containments, 1, Wallpaper, org.kde.image, General]
-            key: Image
-            value: "{{ wallpaper_local_path }}{{ used_wallpaper }}"
-        mode: '0644'
+    - name: "Set wallpaper"
+      # community.general.kdeconfig:
+      #   path: "{{ config_path }}plasma-org.kde.plasma.desktop-appletsrc"
+      #   values:
+      #     - groups: [Containments, 1, Wallpaper, org.kde.image, General]
+      #       key: Image
+      #       value: "{{ wallpaper_local_path }}{{ used_wallpaper }}"
+      #   mode: '0644'
+      command: {{ set_wallpaper_command }}
       notify: "Перезапуск kde"
